@@ -12,8 +12,7 @@ const exampleInitialState = {
   gender: 'female',
   allergies: '',
   physician: '',
-  primayDiagonosis: ''
-
+  primaryDiagonosis: ''
 }
 
 export const actionTypes = {
@@ -71,7 +70,7 @@ export const reducer = (state = exampleInitialState, action) => {
 
     case actionTypes.PRIMARYDIAGONOSIS:
       return Object.assign({}, state, {
-        primayDiagonosis: action.payload
+        primaryDiagonosis: action.payload
       })
 
     case actionTypes.GENDER:

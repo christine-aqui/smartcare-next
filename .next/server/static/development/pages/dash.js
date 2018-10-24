@@ -619,8 +619,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Typography */ "@material-ui/core/Typography");
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _Forms_GeneralInfo__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Forms/GeneralInfo */ "./components/Forms/GeneralInfo.js");
-/* harmony import */ var _Forms_Vitals__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Forms/Vitals */ "./components/Forms/Vitals.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _Forms_GeneralInfo__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Forms/GeneralInfo */ "./components/Forms/GeneralInfo.js");
+/* harmony import */ var _Forms_Vitals__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Forms/Vitals */ "./components/Forms/Vitals.js");
 var _jsxFileName = "/Users/shadidhaque/Desktop/shadid/care2/shadid2/with-redux-app/components/MainForm.js";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -642,6 +646,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -684,19 +690,19 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Forms_GeneralInfo__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Forms_GeneralInfo__WEBPACK_IMPORTED_MODULE_12__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 42
+          lineNumber: 44
         },
         __self: this
       });
 
     case 1:
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Forms_Vitals__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Forms_Vitals__WEBPACK_IMPORTED_MODULE_13__["default"], {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 46
+          lineNumber: 48
         },
         __self: this
       });
@@ -753,6 +759,20 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleSubmit", function () {
+      axios__WEBPACK_IMPORTED_MODULE_11___default.a.post('https://smart-care-api-shadid12.c9users.io/patients', {
+        "firstname": _this.props.firstName,
+        "lastname": _this.props.lastName,
+        "age": _this.props.age,
+        "gender": _this.props.gender,
+        "allergies": _this.props.allergies,
+        "primary_diagonosis": _this.props.primaryDiagonosis,
+        "physician": _this.props.physician
+      }).then(function (res) {
+        console.log(res);
+      });
+    });
+
     return _this;
   }
 
@@ -768,7 +788,7 @@ function (_React$Component) {
         className: classes.root,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 87
+          lineNumber: 103
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Stepper__WEBPACK_IMPORTED_MODULE_3___default.a, {
@@ -776,7 +796,7 @@ function (_React$Component) {
         orientation: "vertical",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 88
+          lineNumber: 104
         },
         __self: this
       }, steps.map(function (label, index) {
@@ -784,38 +804,38 @@ function (_React$Component) {
           key: label,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 91
+            lineNumber: 107
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_StepLabel__WEBPACK_IMPORTED_MODULE_5___default.a, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 92
+            lineNumber: 108
           },
           __self: this
         }, label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_StepContent__WEBPACK_IMPORTED_MODULE_6___default.a, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 93
+            lineNumber: 109
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_9___default.a, {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 94
+            lineNumber: 110
           },
           __self: this
         }, getStepContent(index)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: classes.actionsContainer,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 95
+            lineNumber: 111
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 96
+            lineNumber: 112
           },
           __self: this
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_7___default.a, {
@@ -824,7 +844,7 @@ function (_React$Component) {
           className: classes.button,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 97
+            lineNumber: 113
           },
           __self: this
         }, "Back"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_7___default.a, {
@@ -834,7 +854,7 @@ function (_React$Component) {
           className: classes.button,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 104
+            lineNumber: 120
           },
           __self: this
         }, activeStep === steps.length - 1 ? 'Finish' : 'Next')))));
@@ -844,13 +864,13 @@ function (_React$Component) {
         className: classes.resetContainer,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 120
+          lineNumber: 136
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_9___default.a, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 121
+          lineNumber: 137
         },
         __self: this
       }, "All steps completed - you\"re finished"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_7___default.a, {
@@ -858,10 +878,20 @@ function (_React$Component) {
         className: classes.button,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 122
+          lineNumber: 138
         },
         __self: this
-      }, "Reset")));
+      }, "Reset"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_7___default.a, {
+        onClick: this.handleSubmit,
+        variant: "contained",
+        color: "secondary",
+        className: classes.button,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 141
+        },
+        __self: this
+      }, "Submit")));
     }
   }]);
 
@@ -871,7 +901,27 @@ function (_React$Component) {
 VerticalLinearStepper.propTypes = {
   classes: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
 };
-/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["withStyles"])(styles)(VerticalLinearStepper));
+
+function mapStateToProps(state) {
+  var firstName = state.firstName,
+      lastName = state.lastName,
+      age = state.age,
+      gender = state.gender,
+      allergies = state.allergies,
+      physician = state.physician,
+      primaryDiagonosis = state.primaryDiagonosis;
+  return {
+    firstName: firstName,
+    lastName: lastName,
+    age: age,
+    gender: gender,
+    allergies: allergies,
+    physician: physician,
+    primaryDiagonosis: primaryDiagonosis
+  };
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_10__["connect"])(mapStateToProps)(Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__["withStyles"])(styles)(VerticalLinearStepper)));
 
 /***/ }),
 
@@ -1424,7 +1474,7 @@ var exampleInitialState = {
   gender: 'female',
   allergies: '',
   physician: '',
-  primayDiagonosis: ''
+  primaryDiagonosis: ''
 };
 var actionTypes = {
   TICK: 'TICK',
@@ -1488,7 +1538,7 @@ var reducer = function reducer() {
 
     case actionTypes.PRIMARYDIAGONOSIS:
       return Object.assign({}, state, {
-        primayDiagonosis: action.payload
+        primaryDiagonosis: action.payload
       });
 
     case actionTypes.GENDER:
@@ -1926,6 +1976,17 @@ module.exports = require("@material-ui/icons/Menu");
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/icons/MoveToInbox");
+
+/***/ }),
+
+/***/ "axios":
+/*!************************!*\
+  !*** external "axios" ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("axios");
 
 /***/ }),
 

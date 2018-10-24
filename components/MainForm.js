@@ -8,6 +8,8 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { connect } from 'react-redux';
+import axios from 'axios';
 
 // Components
 import GeneralInfo from './Forms/GeneralInfo';
@@ -78,6 +80,20 @@ class VerticalLinearStepper extends React.Component {
     });
   };
 
+  handleSubmit = () => {
+    axios.post('https://smart-care-api-shadid12.c9users.io/patients', {
+      "firstname": this.props.firstName,
+      "lastname": this.props.lastName,
+      "age": this.props.age,
+      "gender": this.props.gender,
+      "allergies": this.props.allergies,
+      "primary_diagonosis": this.props.primaryDiagonosis,
+      "physician": this.props.physician
+    }).then((res) => {
+      console.log(res);
+    })
+  };
+
   render() {
     const { classes } = this.props;
     const steps = getSteps();
@@ -122,6 +138,13 @@ class VerticalLinearStepper extends React.Component {
             <Button onClick={this.handleReset} className={classes.button}>
               Reset
             </Button>
+            <Button onClick={this.handleSubmit} 
+                    variant="contained" 
+                    color="secondary"
+                    className={classes.button}
+            >
+              Submit
+            </Button>
           </Paper>
         )}
       </div>
@@ -133,4 +156,9 @@ VerticalLinearStepper.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(VerticalLinearStepper);
+function mapStateToProps (state) {
+  const {firstName, lastName, age, gender, allergies, physician, primaryDiagonosis } = state
+  return {firstName, lastName, age, gender,  allergies, physician, primaryDiagonosis}
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(VerticalLinearStepper));

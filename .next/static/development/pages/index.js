@@ -4436,7 +4436,7 @@ var exampleInitialState = {
   gender: 'female',
   allergies: '',
   physician: '',
-  primayDiagonosis: ''
+  primaryDiagonosis: ''
 };
 var actionTypes = {
   TICK: 'TICK',
@@ -4500,7 +4500,7 @@ var reducer = function reducer() {
 
     case actionTypes.PRIMARYDIAGONOSIS:
       return Object.assign({}, state, {
-        primayDiagonosis: action.payload
+        primaryDiagonosis: action.payload
       });
 
     case actionTypes.GENDER:
@@ -4621,7 +4621,7 @@ function initializeStore() {
 
 /***/ }),
 
-/***/ 3:
+/***/ 5:
 /*!******************************!*\
   !*** multi ./pages/index.js ***!
   \******************************/
@@ -4646,5 +4646,5 @@ module.exports = dll_5d62d38be3592dca3a42;
 
 /***/ })
 
-},[[3,"static/runtime/webpack.js"]]]));;
+},[[5,"static/runtime/webpack.js"]]]));;
 //# sourceMappingURL=index.js.map

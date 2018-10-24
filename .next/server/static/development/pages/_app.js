@@ -483,7 +483,7 @@ var exampleInitialState = {
   gender: 'female',
   allergies: '',
   physician: '',
-  primayDiagonosis: ''
+  primaryDiagonosis: ''
 };
 var actionTypes = {
   TICK: 'TICK',
@@ -547,7 +547,7 @@ var reducer = function reducer() {
 
     case actionTypes.PRIMARYDIAGONOSIS:
       return Object.assign({}, state, {
-        primayDiagonosis: action.payload
+        primaryDiagonosis: action.payload
       });
 
     case actionTypes.GENDER:
