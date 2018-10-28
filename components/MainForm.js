@@ -10,10 +10,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import TextField from '@material-ui/core/TextField';
+import Router from 'next/router';
 
 // Components
 import GeneralInfo from './Forms/GeneralInfo';
-import VitalSigns from './Forms/Vitals';
+import VitalSigns2 from './Forms/Vitals2';
 
 const styles = theme => ({
   root: {
@@ -45,13 +47,18 @@ function getStepContent(step) {
       )
     case 1:
       return(
-        <VitalSigns />
+        <VitalSigns2 />
       )
     case 2:
-      return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
+      return(
+        <TextField
+          id="additional-notes"
+          label="Additional Notes"
+          margin="normal"
+          multiline
+          fullWidth
+        />
+      )
     default:
       return 'Unknown step';
   }
@@ -81,16 +88,19 @@ class VerticalLinearStepper extends React.Component {
   };
 
   handleSubmit = () => {
-    axios.post('https://smart-care-api-shadid12.c9users.io/patients', {
+    axios.post('https://smartapinode.herokuapp.com/patients', {
       "firstname": this.props.firstName,
       "lastname": this.props.lastName,
       "age": this.props.age,
       "gender": this.props.gender,
       "allergies": this.props.allergies,
       "primary_diagonosis": this.props.primaryDiagonosis,
-      "physician": this.props.physician
+      "physician": this.props.physician,
+      "vitals": this.props.fields
     }).then((res) => {
-      console.log(res);
+      // Dispact this to the current state
+      console.log(res.data);
+      Router.push('/about')
     })
   };
 
@@ -134,7 +144,7 @@ class VerticalLinearStepper extends React.Component {
         </Stepper>
         {activeStep === steps.length && (
           <Paper square elevation={0} className={classes.resetContainer}>
-            <Typography>All steps completed - you&quot;re finished</Typography>
+            <Typography>All steps completed - Please Submit to create record</Typography>
             <Button onClick={this.handleReset} className={classes.button}>
               Reset
             </Button>
@@ -157,8 +167,8 @@ VerticalLinearStepper.propTypes = {
 };
 
 function mapStateToProps (state) {
-  const {firstName, lastName, age, gender, allergies, physician, primaryDiagonosis } = state
-  return {firstName, lastName, age, gender,  allergies, physician, primaryDiagonosis}
+  const {firstName, lastName, age, gender, allergies, physician, primaryDiagonosis, fields } = state
+  return {firstName, lastName, age, gender,  allergies, physician, primaryDiagonosis, fields}
 }
 
 export default connect(mapStateToProps)(withStyles(styles)(VerticalLinearStepper));

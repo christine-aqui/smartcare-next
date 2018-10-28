@@ -444,7 +444,7 @@ function getPageContext() {
 /*!******************!*\
   !*** ./store.js ***!
   \******************/
-/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changePhysician, initializeStore */
+/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changePhysician, deleteField, initializeStore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -463,6 +463,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeAllergies", function() { return changeAllergies; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changePrimaryDiagonosis", function() { return changePrimaryDiagonosis; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changePhysician", function() { return changePhysician; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteField", function() { return deleteField; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeStore", function() { return initializeStore; });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "redux");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
@@ -483,7 +484,17 @@ var exampleInitialState = {
   gender: 'female',
   allergies: '',
   physician: '',
-  primaryDiagonosis: ''
+  primaryDiagonosis: '',
+  fields: [{
+    label: 'Blood Preasure',
+    val: ''
+  }, {
+    label: 'Oxygen',
+    val: ''
+  }, {
+    label: 'Heart Rate',
+    val: ''
+  }]
 };
 var actionTypes = {
   TICK: 'TICK',
@@ -496,7 +507,8 @@ var actionTypes = {
   GENDER: 'GENDER',
   PHYSICIAN: 'PHYSICIAN',
   ALLERGIES: 'ALLERGIES',
-  PRIMARYDIAGONOSIS: 'PRIMARYDIAGONOSIS' // REDUCERS
+  PRIMARYDIAGONOSIS: 'PRIMARYDIAGONOSIS',
+  DELETEFIELD: 'DELETEFIELD' // REDUCERS
 
 };
 var reducer = function reducer() {
@@ -558,6 +570,11 @@ var reducer = function reducer() {
     case actionTypes.AGE:
       return Object.assign({}, state, {
         age: action.payload
+      });
+
+    case actionTypes.DELETEFIELD:
+      return Object.assign({}, state, {
+        fields: action.payload
       });
 
     default:
@@ -657,6 +674,14 @@ var changePhysician = function changePhysician(payload) {
   return function (dispatch) {
     return dispatch({
       type: actionTypes.PHYSICIAN,
+      payload: payload
+    });
+  };
+};
+var deleteField = function deleteField(payload) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.DELETEFIELD,
       payload: payload
     });
   };

@@ -142,10 +142,10 @@ class GeneralInfo extends React.Component {
 
 
 function mapStateToProps (state) {
-    const {firstName, lastName, age, gender, allergies, physician, primaryDiagonosis } = state
+    const  {firstName, lastName, age, gender, allergies, physician, primaryDiagonosis } = state
     return {firstName, lastName, age, gender,  allergies, physician, primaryDiagonosis}
 }
-  
+
 const styles = theme => ({
     textField: {
         marginRight: '10px'

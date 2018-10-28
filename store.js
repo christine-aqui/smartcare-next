@@ -12,7 +12,21 @@ const exampleInitialState = {
   gender: 'female',
   allergies: '',
   physician: '',
-  primaryDiagonosis: ''
+  primaryDiagonosis: '',
+  fields: [
+    {
+        label: 'Blood Preasure',
+        val: ''
+    },
+    {
+        label: 'Oxygen',
+        val: ''
+    },
+    {
+        label: 'Heart Rate',
+        val: ''
+    }
+  ]
 }
 
 export const actionTypes = {
@@ -26,7 +40,8 @@ export const actionTypes = {
   GENDER: 'GENDER',
   PHYSICIAN: 'PHYSICIAN',
   ALLERGIES: 'ALLERGIES',
-  PRIMARYDIAGONOSIS: 'PRIMARYDIAGONOSIS'
+  PRIMARYDIAGONOSIS: 'PRIMARYDIAGONOSIS',
+  DELETEFIELD: 'DELETEFIELD'
 
 }
 
@@ -81,6 +96,11 @@ export const reducer = (state = exampleInitialState, action) => {
     case actionTypes.AGE:
       return Object.assign({}, state, {
         age: action.payload
+      })
+
+    case actionTypes.DELETEFIELD:
+      return Object.assign({}, state, {
+        fields: action.payload
       })
     
     default: return state
@@ -137,6 +157,10 @@ export const changePrimaryDiagonosis = (payload) => dispatch => {
 
 export const changePhysician = (payload) => dispatch => {
   return dispatch({ type: actionTypes.PHYSICIAN, payload: payload })
+}
+
+export const deleteField = (payload) => dispatch => {
+  return dispatch({ type: actionTypes.DELETEFIELD, payload: payload })
 }
 
 export function initializeStore (initialState = exampleInitialState) {
