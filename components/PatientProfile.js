@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'next/router'
 import axios from 'axios';
 
+
 // Actions
 import { 
     newPatinetAction,
@@ -42,15 +43,15 @@ const styles = theme => ({
 
 class PatientProfile extends React.PureComponent {
     state = {
-        newPatient: {}
+        newPatient: {
+            vitals: []
+        }
     }
 
     componentDidMount() {
         if(this.props.router.query.id) {
             if(this.props.router.query.id !== this.props.newPatient._id ) {
-                console.log('Here');
                 axios.get(`https://smartapinode.herokuapp.com/patients/${this.props.router.query.id}`).then((res) => {
-                    console.log('--->', res.data);
                     const {dispatch} = this.props
                     dispatch(newPatinetAction(res.data.patient))
                     this.setState({ newPatient: this.props.newPatient })
@@ -113,6 +114,15 @@ class PatientProfile extends React.PureComponent {
                               <Typography variant="h6" color="inherit" noWrap>
                                   Vitals
                               </Typography>
+                              {
+                                  this.state.newPatient.vitals.map((item) => {
+                                      return(
+                                        <div>
+                                            <b>{item.label} : </b><span>  {item.val}  </span>
+                                        </div>
+                                      )
+                                  })
+                              }
                           </Paper>
                       </Grid>
                   
