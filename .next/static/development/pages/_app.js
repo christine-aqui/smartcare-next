@@ -21033,7 +21033,7 @@ function getPageContext() {
 /*!******************!*\
   !*** ./store.js ***!
   \******************/
-/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changePhysician, deleteField, initializeStore */
+/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changePhysician, deleteField, newPatinetAction, initializeStore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21053,6 +21053,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changePrimaryDiagonosis", function() { return changePrimaryDiagonosis; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changePhysician", function() { return changePhysician; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteField", function() { return deleteField; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newPatinetAction", function() { return newPatinetAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeStore", function() { return initializeStore; });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/index.js");
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-devtools-extension */ "./node_modules/redux-devtools-extension/index.js");
@@ -21081,7 +21082,8 @@ var exampleInitialState = {
   }, {
     label: 'Heart Rate',
     val: ''
-  }]
+  }],
+  newPatient: {}
 };
 var actionTypes = {
   TICK: 'TICK',
@@ -21095,7 +21097,8 @@ var actionTypes = {
   PHYSICIAN: 'PHYSICIAN',
   ALLERGIES: 'ALLERGIES',
   PRIMARYDIAGONOSIS: 'PRIMARYDIAGONOSIS',
-  DELETEFIELD: 'DELETEFIELD' // REDUCERS
+  DELETEFIELD: 'DELETEFIELD',
+  NEWPATIENT: 'NEWPATIENT' // REDUCERS
 
 };
 var reducer = function reducer() {
@@ -21162,6 +21165,11 @@ var reducer = function reducer() {
     case actionTypes.DELETEFIELD:
       return Object.assign({}, state, {
         fields: action.payload
+      });
+
+    case actionTypes.NEWPATIENT:
+      return Object.assign({}, state, {
+        newPatient: action.payload
       });
 
     default:
@@ -21269,6 +21277,14 @@ var deleteField = function deleteField(payload) {
   return function (dispatch) {
     return dispatch({
       type: actionTypes.DELETEFIELD,
+      payload: payload
+    });
+  };
+};
+var newPatinetAction = function newPatinetAction(payload) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.NEWPATIENT,
       payload: payload
     });
   };

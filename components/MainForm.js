@@ -17,6 +17,12 @@ import Router from 'next/router';
 import GeneralInfo from './Forms/GeneralInfo';
 import VitalSigns2 from './Forms/Vitals2';
 
+// Actions
+import { 
+  newPatinetAction,
+} from '../store'
+
+
 const styles = theme => ({
   root: {
     width: '90%',
@@ -99,8 +105,12 @@ class VerticalLinearStepper extends React.Component {
       "vitals": this.props.fields
     }).then((res) => {
       // Dispact this to the current state
-      console.log(res.data);
-      Router.push('/about')
+      // console.log(res.data.newPatient);
+
+      const {dispatch} = this.props
+      dispatch(newPatinetAction(res.data.newPatient))
+
+      Router.push(`/about?${res.data.newPatient._id}`)
     })
   };
 
