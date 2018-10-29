@@ -11,6 +11,10 @@ import CardHeader from '@material-ui/core/CardHeader';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router'
 import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
+import Router from 'next/router';
+
 
 
 // Actions
@@ -48,12 +52,13 @@ class PatientProfile extends React.PureComponent {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         if(this.props.router.query.id) {
             if(this.props.router.query.id !== this.props.newPatient._id ) {
                 axios.get(`https://smartapinode.herokuapp.com/patients/${this.props.router.query.id}`).then((res) => {
                     const {dispatch} = this.props
                     dispatch(newPatinetAction(res.data.patient))
+                    console.log('Here', res );
                     this.setState({ newPatient: this.props.newPatient })
                 })
             }
@@ -62,7 +67,8 @@ class PatientProfile extends React.PureComponent {
 
     render() {
         const { classes } = this.props;
-        if( this.props.newPatient ) {
+        if( Object.keys(this.props.newPatient).length !== 0 ) {
+            console.log(this.props.newPatient);
             return (
                 <div className={classes.root}>
                   <Grid container spacing={24}>
@@ -77,8 +83,24 @@ class PatientProfile extends React.PureComponent {
                                   />
                               }
                               title="Summary"
-                              subheader="September 14, 2016"
+                              subheader="September 14, 2018"
                           />
+                            <CardActions>
+                                <Button 
+                                    size="small" 
+                                    color="primary"
+                                    onClick={
+                                        () => {
+                                            Router.push(`/dash?id=${this.state.newPatient._id}`)
+                                        }
+                                    }
+                                >
+                                    Edit Info
+                                </Button>
+                                <Button size="small" color="primary">
+                                    More
+                                </Button>
+                            </CardActions>
                       </Card>
                     </Grid>
                   </Grid>

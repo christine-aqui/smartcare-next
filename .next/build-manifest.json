@@ -11,11 +11,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/about": [
+    "/dash": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/dash": [
+    "/about": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

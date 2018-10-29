@@ -9,9 +9,9 @@ import MiniDrawer from '../components/MiniDrawer';
 class Index extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount () {
+    this.state = {
+      patients: []
+    }
   }
 
   componentWillUnmount () {
@@ -20,7 +20,7 @@ class Index extends React.Component {
   render () {
     return (
       <div>
-        <MiniDrawer />
+        <MiniDrawer showForm="true"/>
       </div>
     )
   }

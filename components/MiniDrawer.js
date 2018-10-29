@@ -21,6 +21,7 @@ import MailIcon from '@material-ui/icons/Mail';
 
 import VerticalLinearStepper from '../components/MainForm';
 import PatientProfile from '../components/PatientProfile';
+import PatientsList from '../components/PatientsList'
 
 const drawerWidth = 240;
 
@@ -161,7 +162,17 @@ class MiniDrawer extends React.Component {
           {
             this.props.showAbout ? (
               <PatientProfile />
-            ) : <VerticalLinearStepper />
+            ) : null
+          }
+          {
+            this.props.showForm ? (
+              <VerticalLinearStepper />
+            ) : null
+          }
+          {
+            this.props.showList ? (
+              <PatientsList />
+            ) : null
           }
         </main>
       </div>
