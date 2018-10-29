@@ -6,6 +6,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 // store
 import { 
@@ -15,7 +16,9 @@ import {
     changeGender,
     changePrimaryDiagonosis,
     changePhysician,
-    changeAllergies
+    changeAllergies,
+    changeEmergencyContact,
+    updateDenture
 } from '../../store'
 
 
@@ -26,7 +29,7 @@ class GeneralInfo extends React.Component {
         value: 'female'
     };
     
-    handleChange = event => {
+    handleChangeGender = event => {
         const {dispatch} = this.props
         dispatch(changeGender(event.target.value))
     };
@@ -61,6 +64,24 @@ class GeneralInfo extends React.Component {
         dispatch(changePrimaryDiagonosis(event.target.value))
     }
 
+    handleEmergencyContact = event => {
+        const {dispatch} = this.props
+        dispatch(changeEmergencyContact(event.target.value))
+    }
+
+    handleChange = name => event => {
+        const {dispatch} = this.props
+        switch(name) {
+            case 'denteture':
+                dispatch(updateDenture(!this.props.denteture))
+                break;
+            default:
+                console.log('Fuck You');
+        }
+        // const {dispatch} = this.props
+        // dispatch(updateDenture(misc))
+    };
+
     render()
     {
         const { classes } = this.props;
@@ -90,6 +111,42 @@ class GeneralInfo extends React.Component {
                     value={this.props.age}
                     className={classes.textField}
                 />
+                <TextField
+                    label="Emergency Contact"
+                    margin="normal"
+                    className={classes.textField}
+                    onChange={this.handleEmergencyContact}
+                    value={this.props.emergencyContact}
+                />
+            </div>
+            <div className={classes.row}>
+                <TextField
+                    label="Arrival Time"
+                    margin="normal"
+                    className={classes.textField}
+                    onChange={this.handleEmergencyContact}
+                    value={this.props.emergencyContact}
+                />
+
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={this.props.denteture}
+                            onChange={this.handleChange('denteture')}
+                            value={this.props.deteture}
+                        />
+                    }
+                    className={classes.checkboxes}
+                    label="Deteture/Glass/Mouthware Removed"
+                />
+                <TextField
+                    label="NPO Since"
+                    margin="normal"
+                    className={classes.textField}
+                    onChange={this.handleEmergencyContact}
+                    value={this.props.emergencyContact}
+                />
+ 
             </div>
             <div className={`${classes.row} ${classes.gender}`}>
                 <div>
@@ -99,7 +156,7 @@ class GeneralInfo extends React.Component {
                     name="gender1"
                     className={classes.group}
                     value={this.props.gender}
-                    onChange={this.handleChange}
+                    onChange={this.handleChangeGender}
                 >
                     <FormControlLabel value="female" control={<Radio />} label="Female" />
                     <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -142,8 +199,28 @@ class GeneralInfo extends React.Component {
 
 
 function mapStateToProps (state) {
-    const  {firstName, lastName, age, gender, allergies, physician, primaryDiagonosis } = state
-    return {firstName, lastName, age, gender,  allergies, physician, primaryDiagonosis}
+    const  {
+        firstName, 
+        lastName, 
+        age, 
+        gender, 
+        allergies, 
+        physician, 
+        primaryDiagonosis,
+        emergencyContact,
+        denteture
+    } = state
+    return {
+        firstName, 
+        lastName, 
+        age, 
+        gender, 
+        allergies, 
+        physician, 
+        primaryDiagonosis,
+        emergencyContact,
+        denteture
+    }
 }
 
 const styles = theme => ({
@@ -156,6 +233,12 @@ const styles = theme => ({
     },
     gender: {
         paddingTop: '20px'
+    },
+    checkboxes: {
+        paddingTop: '25px'
+    },
+    group: {
+        flexDirection: 'row'
     }
 });
 

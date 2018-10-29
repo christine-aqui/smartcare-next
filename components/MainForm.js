@@ -25,7 +25,7 @@ import {
 
 const styles = theme => ({
   root: {
-    width: '90%',
+    width: '100%',
     overflowY: 'scroll',
     height: '85vh'
   },

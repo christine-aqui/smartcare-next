@@ -13,6 +13,8 @@ const exampleInitialState = {
   allergies: '',
   physician: '',
   primaryDiagonosis: '',
+  emergencyContact: '',
+  denteture: false,
   fields: [
     {
         label: 'Blood Preasure',
@@ -27,7 +29,8 @@ const exampleInitialState = {
         val: ''
     }
   ],
-  newPatient: {}
+  newPatient: {},
+
 }
 
 export const actionTypes = {
@@ -43,7 +46,9 @@ export const actionTypes = {
   ALLERGIES: 'ALLERGIES',
   PRIMARYDIAGONOSIS: 'PRIMARYDIAGONOSIS',
   DELETEFIELD: 'DELETEFIELD',
-  NEWPATIENT: 'NEWPATIENT'
+  NEWPATIENT: 'NEWPATIENT',
+  EMERGENCYCONTACT: 'EMERGENCYCONTACT',
+  DENTURE: 'DENTURE'
 
 }
 
@@ -110,6 +115,16 @@ export const reducer = (state = exampleInitialState, action) => {
         newPatient: action.payload
       })
 
+    case actionTypes.EMERGENCYCONTACT:
+      return Object.assign({}, state, {
+        emergencyContact: action.payload        
+      })
+
+    case actionTypes.DENTURE: 
+      return Object.assign({}, state, {
+        denteture: action.payload        
+      })
+
     default: return state
   }
 }
@@ -162,6 +177,10 @@ export const changePrimaryDiagonosis = (payload) => dispatch => {
   return dispatch({ type: actionTypes.PRIMARYDIAGONOSIS, payload: payload })
 }
 
+export const changeEmergencyContact = (payload) => dispatch => {
+  return dispatch({ type: actionTypes.EMERGENCYCONTACT, payload: payload })
+}
+
 export const changePhysician = (payload) => dispatch => {
   return dispatch({ type: actionTypes.PHYSICIAN, payload: payload })
 }
@@ -172,6 +191,10 @@ export const deleteField = (payload) => dispatch => {
 
 export const newPatinetAction = (payload) => dispatch => {
   return dispatch({ type: actionTypes.NEWPATIENT, payload: payload })
+}
+
+export const updateDenture = (payload) => dispatch => {
+  return dispatch({ type: actionTypes.DENTURE, payload: payload })
 }
 
 export function initializeStore (initialState = exampleInitialState) {
