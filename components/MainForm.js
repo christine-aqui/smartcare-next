@@ -104,9 +104,6 @@ class VerticalLinearStepper extends React.Component {
       "physician": this.props.physician,
       "vitals": this.props.fields
     }).then((res) => {
-      // Dispact this to the current state
-      // console.log(res.data.newPatient);
-
       const {dispatch} = this.props
       dispatch(newPatinetAction(res.data.newPatient))
 
