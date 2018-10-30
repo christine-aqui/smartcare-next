@@ -15,6 +15,7 @@ const exampleInitialState = {
   primaryDiagonosis: '',
   emergencyContact: '',
   denteture: false,
+  concent: false,
   fields: [
     {
         label: 'Blood Preasure',
@@ -30,7 +31,7 @@ const exampleInitialState = {
     }
   ],
   newPatient: {},
-
+  
 }
 
 export const actionTypes = {
@@ -48,7 +49,8 @@ export const actionTypes = {
   DELETEFIELD: 'DELETEFIELD',
   NEWPATIENT: 'NEWPATIENT',
   EMERGENCYCONTACT: 'EMERGENCYCONTACT',
-  DENTURE: 'DENTURE'
+  DENTURE: 'DENTURE',
+  CONCENT: 'CONCENT'
 
 }
 
@@ -124,6 +126,10 @@ export const reducer = (state = exampleInitialState, action) => {
       return Object.assign({}, state, {
         denteture: action.payload        
       })
+    case actionTypes.CONCENT:
+      return Object.assign({}, state, {
+        concent: action.payload        
+      })
 
     default: return state
   }
@@ -195,6 +201,10 @@ export const newPatinetAction = (payload) => dispatch => {
 
 export const updateDenture = (payload) => dispatch => {
   return dispatch({ type: actionTypes.DENTURE, payload: payload })
+}
+
+export const updateConcent = (payload) => dispatch => {
+  return dispatch({ type: actionTypes.CONCENT, payload: payload })
 }
 
 export function initializeStore (initialState = exampleInitialState) {

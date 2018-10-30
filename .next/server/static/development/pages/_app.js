@@ -444,7 +444,7 @@ function getPageContext() {
 /*!******************!*\
   !*** ./store.js ***!
   \******************/
-/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changeEmergencyContact, changePhysician, deleteField, newPatinetAction, updateDenture, initializeStore */
+/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changeEmergencyContact, changePhysician, deleteField, newPatinetAction, updateDenture, updateConcent, initializeStore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -467,6 +467,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteField", function() { return deleteField; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newPatinetAction", function() { return newPatinetAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateDenture", function() { return updateDenture; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateConcent", function() { return updateConcent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeStore", function() { return initializeStore; });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "redux");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
@@ -490,6 +491,7 @@ var exampleInitialState = {
   primaryDiagonosis: '',
   emergencyContact: '',
   denteture: false,
+  concent: false,
   fields: [{
     label: 'Blood Preasure',
     val: ''
@@ -517,7 +519,8 @@ var actionTypes = {
   DELETEFIELD: 'DELETEFIELD',
   NEWPATIENT: 'NEWPATIENT',
   EMERGENCYCONTACT: 'EMERGENCYCONTACT',
-  DENTURE: 'DENTURE' // REDUCERS
+  DENTURE: 'DENTURE',
+  CONCENT: 'CONCENT' // REDUCERS
 
 };
 var reducer = function reducer() {
@@ -599,6 +602,11 @@ var reducer = function reducer() {
     case actionTypes.DENTURE:
       return Object.assign({}, state, {
         denteture: action.payload
+      });
+
+    case actionTypes.CONCENT:
+      return Object.assign({}, state, {
+        concent: action.payload
       });
 
     default:
@@ -730,6 +738,14 @@ var updateDenture = function updateDenture(payload) {
   return function (dispatch) {
     return dispatch({
       type: actionTypes.DENTURE,
+      payload: payload
+    });
+  };
+};
+var updateConcent = function updateConcent(payload) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.CONCENT,
       payload: payload
     });
   };

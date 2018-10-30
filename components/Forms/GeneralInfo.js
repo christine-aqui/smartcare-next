@@ -18,7 +18,8 @@ import {
     changePhysician,
     changeAllergies,
     changeEmergencyContact,
-    updateDenture
+    updateDenture,
+    updateConcent
 } from '../../store'
 
 
@@ -75,11 +76,12 @@ class GeneralInfo extends React.Component {
             case 'denteture':
                 dispatch(updateDenture(!this.props.denteture))
                 break;
+            case 'concent':
+                dispatch(updateConcent(!this.props.concent))
+                break;
             default:
-                console.log('Fuck You');
+                console.log('Error');
         }
-        // const {dispatch} = this.props
-        // dispatch(updateDenture(misc))
     };
 
     render()
@@ -127,7 +129,6 @@ class GeneralInfo extends React.Component {
                     onChange={this.handleEmergencyContact}
                     value={this.props.emergencyContact}
                 />
-
                 <FormControlLabel
                     control={
                         <Checkbox
@@ -138,6 +139,17 @@ class GeneralInfo extends React.Component {
                     }
                     className={classes.checkboxes}
                     label="Deteture/Glass/Mouthware Removed"
+                />
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={this.props.concent}
+                            onChange={this.handleChange('concent')}
+                            value={this.props.concent}
+                        />
+                    }
+                    className={classes.checkboxes}
+                    label="Consent on Chart"
                 />
                 <TextField
                     label="NPO Since"
@@ -208,7 +220,8 @@ function mapStateToProps (state) {
         physician, 
         primaryDiagonosis,
         emergencyContact,
-        denteture
+        denteture,
+        concent
     } = state
     return {
         firstName, 
@@ -219,7 +232,8 @@ function mapStateToProps (state) {
         physician, 
         primaryDiagonosis,
         emergencyContact,
-        denteture
+        denteture,
+        concent
     }
 }
 
