@@ -155,6 +155,7 @@ class AppBarMain extends React.Component {
             <MenuItem
               key={item} 
               onClick={this.handleMenuClose}>
+                <NotificationsIcon />
                 {item}
             </MenuItem>
           )
