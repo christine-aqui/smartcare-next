@@ -33,6 +33,11 @@ function QuickLinks(props) {
                     <Typography variant="h5" component="h3">
                         Patients
                     </Typography>
+                    <ul>
+                       <li>Incoming Patients # 12</li>
+                       <li>Last Seen # 11</li>
+                       <li>At risk # 1</li>
+                    </ul>
                     <Button color="secondary" className={classes.button}>
                         View
                     </Button>
@@ -43,6 +48,11 @@ function QuickLinks(props) {
                     <Typography variant="h5" component="h3">
                         Referals
                     </Typography>
+                    <ul>
+                       <li>Recieved # 2</li>
+                       <li>Completed # 1</li>
+                       <li>Outstanding # 10</li>
+                    </ul>
                     <Button color="secondary" className={classes.button}>
                         View
                     </Button>
@@ -53,6 +63,10 @@ function QuickLinks(props) {
                     <Typography variant="h5" component="h3">
                         Assestments
                     </Typography>
+                    <ul>
+                       <li>Outstanding # 2</li>
+                       <li>Completed # 1</li>
+                    </ul>
                     <Button color="secondary" className={classes.button}>
                         View
                     </Button>

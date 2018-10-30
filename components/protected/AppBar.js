@@ -88,20 +88,28 @@ const styles = theme => ({
 class AppBarMain extends React.Component {
   state = {
     anchorEl: null,
+    anchorNotice: null,
     mobileMoreAnchorEl: null,
     notice: [
       'Some Notice',
       'Other Notice'
     ],
-    open: false
+    open: false,
+    show: true
   };
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
+  handleNoticeMenuOpen = event => {
+    this.setState({ anchorNotice: event.currentTarget, show: false });
+  }
+
+
   handleMenuClose = () => {
     this.setState({ anchorEl: null });
+    this.setState({ anchorNotice: null });
     this.handleMobileMenuClose();
   };
 
@@ -114,9 +122,10 @@ class AppBarMain extends React.Component {
   };
 
   render() {
-    const { anchorEl, mobileMoreAnchorEl } = this.state;
+    const { anchorEl, anchorNotice, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
     const isMenuOpen = Boolean(anchorEl);
+    const isNoticeOpen = Boolean(anchorNotice)
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const renderMenu = (
@@ -129,6 +138,28 @@ class AppBarMain extends React.Component {
       >
         <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
+      </Menu>
+    );
+
+    const renderNotice = (
+      <Menu
+        anchorEl={anchorNotice}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        open={isNoticeOpen}
+        onClose={this.handleMenuClose}
+      >
+      {
+        this.state.notice.map((item) => {
+          return (
+            <MenuItem
+              key={item} 
+              onClick={this.handleMenuClose}>
+                {item}
+            </MenuItem>
+          )
+        })
+      }
       </Menu>
     );
 
@@ -179,10 +210,18 @@ class AppBarMain extends React.Component {
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               
-              <IconButton color="inherit">
-                <Badge badgeContent={this.state.notice.length} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
+              <IconButton color="inherit" onClick={this.handleNoticeMenuOpen}>
+                {
+                  !this.state.show ? (
+                    <NotificationsIcon />
+                  ) : (
+                    <Badge 
+                      badgeContent={this.state.notice.length} 
+                      color="secondary">
+                      <NotificationsIcon />
+                    </Badge>
+                  )
+                }
               </IconButton>
               <IconButton
                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
@@ -202,7 +241,7 @@ class AppBarMain extends React.Component {
         </AppBar>
         {renderMenu}
         {renderMobileMenu}
-
+        {renderNotice}
         
       </div>
     );
