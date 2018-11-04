@@ -7,26 +7,39 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 import Item from './Items/Item';
+var shortid = require('shortid');
 
 class Builder extends React.Component {
     state ={
-        targets: {
-            'textArea': ''
-        }
+        formObjects: [
+            {
+                label:'text'
+            },
+            {
+                label: 'radio'
+            },
+            {
+                label: 'multi-choice'
+            }
+        ],
+        items: [],
+        selectedObject: {}
     };
     constructor(props) {
         super(props);
     }
+
+
+    handleDrop = (e) => {
+        e.stopPropagation();
+        let items = this.state.items.slice();
+        let itemToAdd = this.state.selectedObject
+        items.push({label: itemToAdd.label, uid: shortid.generate()});
+        this.setState({items: items});
+    };
+
     render() {
         const { classes } = this.props;
-        const dragData = [
-            {
-                label: 'multipleChoice'
-            },
-            {
-                label: 'radio'
-            }
-        ]
         return(
             <div>
                 <AppBar />
@@ -35,60 +48,46 @@ class Builder extends React.Component {
                 <Grid container spacing={24}>
                     <Grid item xs={3} sm={3} className={classes.subRow}>
                         {
-                            dragData.map((item) => {
+                            this.state.formObjects.map((item) => {
                                 return(
                                     <DragDropContainer 
-                                        key={item.label}
                                         targetKey="foo"
-                                        dragData={dragData} 
                                         onDrop={() => {
-                                            console.log('----> Dropped');
+                                            console.log('I am called')
+                                            this.setState({
+                                                selectedObject: item
+                                            })
                                         }}
-                                        // onDragStart={some method} 
-                                        // onDrag={some method} 
-                                        // onDragEnd={some method} 
+                                        disappearDraggedElement={true}
                                     >   
                                         <Paper className={classes.paper}>
                                             <Item formItem={item}/>
                                         </Paper>
                                     </DragDropContainer>
-                                );
+                                )
                             })
                         }
                     </Grid>
-                    <Grid item xs={8} sm={3}>
-                        Here will be the Form
+                    <Grid item xs={12} sm={6}>
+                        {
+                            this.state.items.map((item) => {
+                                return(
+                                    <div>{item.label}</div>
+                                )
+                            })
+                        }
+                        <DropTarget 
+                            targetKey="foo"
+                            onHit={this.handleDrop}
+                            dropData={{label: 'lol'}}
+                        >
+                            <Grid item xs={6} className={classes.target}>
+                                Drop An Item Here to Add
+                            </Grid>
+                        </DropTarget>
                     </Grid>
                 </Grid>
                 </div>
-                {/* <DragDropContainer 
-                    targetKey="foo"
-                    dragData={dragData} 
-                    onDrop={() => {
-                        console.log('----> Dropped');
-                    }}
-                    // onDragStart={some method} 
-                    // onDrag={some method} 
-                    // onDragEnd={some method} 
-                >
-                    <div>Drag Me!</div>
-                </DragDropContainer>
-
-                <div className={classes.drop}>
-                    <DropTarget 
-                        targetKey="foo"
-                        dropData={dragData} 
-                        onHit={() => {
-                            console.log('Added Data');
-                        }}
-                        onDragEnter={() => {
-                            console.log('Enter SandMan')
-                        }} 
-                        // onDragLeave={some function} 
-                    >
-                        <p>I'm a valid drop target for the object above since we both have the same targetKey!</p>
-                    </DropTarget>
-                </div> */}
             </div>
         )
     }
@@ -112,8 +111,7 @@ const styles = theme => ({
         border: '2px solid red'
     },
     selectRow: {
-        display: 'flex',
-        border: '2px solid pink'
+        display: 'flex'
     },
     paper: {
         padding: theme.spacing.unit * 2,
@@ -124,6 +122,12 @@ const styles = theme => ({
     subRow: {
         display: 'flex',
         flexDirection: 'column',
+    },
+    target: {
+        width: '100%',
+        height: '20vh',
+        border: '2px dotted pink',
+        textAlign: 'center'
     }
 });
 
