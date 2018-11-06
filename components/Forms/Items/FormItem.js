@@ -13,6 +13,7 @@ import TextComponent from './Controls/TextComponent';
 import CalanderComponent from './Controls/CalanderComponent';
 import RadioComponent from './Controls/RadioComponent'
 import DropDownComponent from './Controls/DropDownComponent'
+import NumericComponent from './Controls/NumericComponent';
 
 
 function GetFormItem(item) {
@@ -36,6 +37,10 @@ function GetFormItem(item) {
         case 'dropdown':
             return(
                 <DropDownComponent inputItem={item} />
+            )
+        case 'numeric':
+            return (
+                <NumericComponent inputItem={item} />
             )
         default:
             return(

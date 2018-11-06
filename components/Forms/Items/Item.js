@@ -7,7 +7,8 @@ import {    FaListUl,
             FaCheckSquare,
             FaAlignJustify,
             FaCalendar,
-            FaCaretDown
+            FaCaretDown,
+            FaTextHeight
 } from 'react-icons/fa'
 
 
@@ -20,7 +21,7 @@ function GetIcons({label}) {
         case 'multipleChoice':
         case 'text':
             return (
-                <FaAlignJustify />
+                <FaTextHeight />
             )
         case 'calander':
             return (
@@ -29,7 +30,11 @@ function GetIcons({label}) {
         case 'dropdown':
             return (
                 <FaCaretDown />
-            )    
+            )
+        case 'numeric':
+            return (
+                <FaAlignJustify />
+            )
         default:
             return(
                 <FaListUl />

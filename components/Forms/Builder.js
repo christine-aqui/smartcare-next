@@ -52,6 +52,10 @@ class Builder extends React.Component {
                     }
                 ],
                 selected: ''
+            },
+            {
+                label: 'numeric',
+                q_label: 'Numeric Value Title'
             }
         ],
         items: [],
