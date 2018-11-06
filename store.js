@@ -31,6 +31,7 @@ const exampleInitialState = {
     }
   ],
   newPatient: {},
+  items: []
   
 }
 
@@ -50,7 +51,8 @@ export const actionTypes = {
   NEWPATIENT: 'NEWPATIENT',
   EMERGENCYCONTACT: 'EMERGENCYCONTACT',
   DENTURE: 'DENTURE',
-  CONCENT: 'CONCENT'
+  CONCENT: 'CONCENT',
+  UPDATEITEMS: 'UPDATEITEMS'
 
 }
 
@@ -130,6 +132,10 @@ export const reducer = (state = exampleInitialState, action) => {
       return Object.assign({}, state, {
         concent: action.payload        
       })
+    case actionTypes.UPDATEITEMS:
+      return Object.assign({}, state, {
+        items: action.payload        
+      })
 
     default: return state
   }
@@ -205,6 +211,10 @@ export const updateDenture = (payload) => dispatch => {
 
 export const updateConcent = (payload) => dispatch => {
   return dispatch({ type: actionTypes.CONCENT, payload: payload })
+}
+
+export const updateItems = (payload) => dispatch => {
+  return dispatch({ type: actionTypes.UPDATEITEMS, payload: payload })
 }
 
 export function initializeStore (initialState = exampleInitialState) {

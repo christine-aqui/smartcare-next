@@ -5,13 +5,18 @@ import AppBar from '../protected/AppBar';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Icon from '@material-ui/core/Icon';
+import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import Item from './Items/Item';
 import GetFormItem from './Items/FormItem'
 var shortid = require('shortid');
+
+// store
+import { 
+    updateItems
+} from '../../store'
 
 class Builder extends React.Component {
     state ={
@@ -39,14 +44,22 @@ class Builder extends React.Component {
         let items = this.state.items.slice();
         let itemToAdd = this.state.selectedObject
         items.push({label: itemToAdd.label, uid: shortid.generate()});
-        this.setState({items: items});
+
+        const {dispatch} = this.props
+        dispatch(updateItems(items))
+
+        this.setState({items: this.props.items});
     };
 
     deleteItem = (e) => (index) => {
         let itemsCopy = this.state.items;
         itemsCopy.splice(index, 1)
+
+        const {dispatch} = this.props
+        dispatch(updateItems(itemsCopy))
+
         this.setState({
-            items: itemsCopy
+            items: this.props.items
         })
     }
 
@@ -65,7 +78,6 @@ class Builder extends React.Component {
                                     <DragDropContainer 
                                         targetKey="foo"
                                         onDrop={() => {
-                                            console.log('I am called')
                                             this.setState({
                                                 selectedObject: item
                                             })
@@ -157,4 +169,9 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(Builder);
+function mapStateToProps (state) {
+    const  { items } = state
+    return { items }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(Builder));
