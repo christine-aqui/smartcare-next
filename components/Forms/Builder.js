@@ -5,8 +5,12 @@ import AppBar from '../protected/AppBar';
 import { DragDropContainer, DropTarget } from 'react-drag-drop-container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Icon from '@material-ui/core/Icon';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import Item from './Items/Item';
+import GetFormItem from './Items/FormItem'
 var shortid = require('shortid');
 
 class Builder extends React.Component {
@@ -37,6 +41,14 @@ class Builder extends React.Component {
         items.push({label: itemToAdd.label, uid: shortid.generate()});
         this.setState({items: items});
     };
+
+    deleteItem = (e) => (index) => {
+        let itemsCopy = this.state.items;
+        itemsCopy.splice(index, 1)
+        this.setState({
+            items: itemsCopy
+        })
+    }
 
     render() {
         const { classes } = this.props;
@@ -70,9 +82,18 @@ class Builder extends React.Component {
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         {
-                            this.state.items.map((item) => {
+                            this.state.items.map((item, index) => {
                                 return(
-                                    <div>{item.label}</div>
+                                    <div className={classes.row}>
+                                        <GetFormItem formItem={item} />
+                                        <IconButton 
+                                            aria-label="Delete" 
+                                            className={classes.button}
+                                            onClick={this.deleteItem(index)}
+                                        > 
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </div>
                                 )
                             })
                         }
@@ -128,6 +149,11 @@ const styles = theme => ({
         height: '20vh',
         border: '2px dotted pink',
         textAlign: 'center'
+    },
+    button: {
+        margin: theme.spacing.unit,
+        borderRadius: '0px',
+        border: '1px dotted'
     }
 });
 
