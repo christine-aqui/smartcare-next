@@ -9,6 +9,7 @@ import {    FaListUl,
 
 // Components
 import MultipleChoices from './Controls/MultipleChoices';
+import TextComponent from './Controls/TextComponent';
 
 
 function GetFormItem(item) {
@@ -20,6 +21,10 @@ function GetFormItem(item) {
         case 'multi-choice':
             return(
                 <MultipleChoices inputItem={item}/>
+            )
+        case 'text':
+            return(
+                <TextComponent inputItem={item} />
             )
         default:
             return(

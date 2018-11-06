@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 // Icons 
 import {    FaListUl,
-            FaCheckSquare
+            FaCheckSquare,
+            FaAlignJustify
 } from 'react-icons/fa'
 
 
@@ -15,6 +16,10 @@ function GetIcons({label}) {
                 <FaCheckSquare />
             )
         case 'multipleChoice':
+        case 'text':
+            return (
+                <FaAlignJustify />
+            )
         default:
             return(
                 <FaListUl />

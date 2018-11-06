@@ -22,7 +22,8 @@ class Builder extends React.Component {
     state ={
         formObjects: [
             {
-                label:'text'
+                label:'text',
+                q_label: 'Question Title'
             },
             {
                 label: 'radio'
