@@ -8,6 +8,8 @@ import Paper from '@material-ui/core/Paper';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+import Router from 'next/router';
 
 import Item from './Items/Item';
 import GetFormItem from './Items/FormItem'
@@ -119,6 +121,17 @@ class Builder extends React.Component {
                                 )
                             })
                         }
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            className={classes.createButton}
+                            onClick={() => {
+                                Router.push(`/form-consumer`)
+                            }}
+                            disabled={this.state.items.length === 0}
+                        >
+                            Create Form
+                        </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         {
@@ -194,6 +207,9 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         borderRadius: '0px',
         border: '1px dotted'
+    },
+    createButton: {
+        margin: theme.spacing.unit
     }
 });
 
