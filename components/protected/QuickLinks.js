@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
+import Router from 'next/router';
+
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
@@ -15,6 +17,9 @@ const styles = theme => ({
   container: {
       paddingTop: '50px',
       paddingLeft: '50px'
+  },
+  formButton: {
+      padding: '30px'
   }
 });
 
@@ -73,6 +78,14 @@ function QuickLinks(props) {
                 </Paper>
             </Grid>
         </Grid>
+        <Button color="secondary" 
+                className={classes.formButton}
+                onClick={() => {
+                    Router.push(`/test`)
+                }}
+        >
+            Create New Form
+        </Button>
     </div>
   );
 }

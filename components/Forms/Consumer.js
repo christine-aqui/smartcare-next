@@ -165,6 +165,14 @@ class Consumer extends React.Component {
                                             </FormControl>
                                         </div>
                                     )
+
+                                case 'numeric':
+                                    return(
+                                        <TextField 
+                                            label={item.q_label}
+                                            type="number"
+                                        />
+                                    )
                                 default:
                                     return(
                                         <div>Hello man</div>
