@@ -5,7 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 // Icons 
 import {    FaListUl,
             FaCheckSquare,
-            FaAlignJustify
+            FaAlignJustify,
+            FaCalendar
 } from 'react-icons/fa'
 
 
@@ -19,6 +20,10 @@ function GetIcons({label}) {
         case 'text':
             return (
                 <FaAlignJustify />
+            )
+        case 'calander':
+            return (
+                <FaCalendar />
             )
         default:
             return(

@@ -26,7 +26,9 @@ class Builder extends React.Component {
                 q_label: 'Question Title'
             },
             {
-                label: 'radio'
+                label: 'radio',
+                q_label: 'Question Title',
+                answer: false
             },
             {
                 label: 'multi-choice',
@@ -36,6 +38,10 @@ class Builder extends React.Component {
                         value: true,
                     }
                 ]
+            },
+            {
+                label:'calander',
+                q_label: 'Question Title'
             }
         ],
         items: [],

@@ -10,7 +10,7 @@ import {
 } from '../../../../store'
 
 
-class TextComponent extends React.Component {
+class CalanderComponent extends React.Component {
     state = {
         model: {}
     }
@@ -38,9 +38,9 @@ class TextComponent extends React.Component {
         const { classes } = this.props;
         return(
             <TextField
-                label="Question Label"
+                type="datetime-local"
                 className={classes.textField}
-                value={this.state.model.q_label}
+                defaultValue="2017-05-24T10:30"
                 onChange={this.handleTextChange}
                 margin="normal"
             />
@@ -48,7 +48,7 @@ class TextComponent extends React.Component {
     }
 }
 
-TextComponent.propTypes = {
+CalanderComponent.propTypes = {
     classes: PropTypes.object,
 };
 
@@ -60,7 +60,7 @@ const styles = theme => ({
     textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 200,
+        width: 400,
     },
 });
 
@@ -69,4 +69,4 @@ function mapStateToProps (state) {
     return { items }
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(TextComponent));
+export default connect(mapStateToProps)(withStyles(styles)(CalanderComponent));

@@ -10,13 +10,15 @@ import {    FaListUl,
 // Components
 import MultipleChoices from './Controls/MultipleChoices';
 import TextComponent from './Controls/TextComponent';
+import CalanderComponent from './Controls/CalanderComponent';
+import RadioComponent from './Controls/RadioComponent'
 
 
 function GetFormItem(item) {
     switch(item.label) {
-        case 'radio': 
+        case 'radio':
             return(
-                <MultipleChoices inputItem={item}/>
+                <RadioComponent inputItem={item}/>
             )
         case 'multi-choice':
             return(
@@ -25,6 +27,10 @@ function GetFormItem(item) {
         case 'text':
             return(
                 <TextComponent inputItem={item} />
+            )
+        case 'calander':
+            return(
+                <CalanderComponent inputItem={item}/>
             )
         default:
             return(
