@@ -54,8 +54,24 @@ class MultipleChoices extends React.Component {
                             <div>
                                 <Checkbox 
                                     checked={option.value} 
-                                    onChange={this.handleChange(option)} 
-                                    value="op_a" 
+                                    onChange={() => {
+
+                                        let itemsCopy = this.props.items;
+                                        // fidn index
+                                        this.props.items.map((aItem, i) => {
+                                            if(aItem.uid == this.props.inputItem.uid) {
+                                                itemsCopy[i].options[index].value 
+                                                    = !itemsCopy[i].options[index].value
+
+                                                const {dispatch} = this.props
+                                                dispatch(updateItems(itemsCopy))
+                                                this.setState({
+                                                    model: itemsCopy[i]
+                                                })
+                                            }
+                                        })
+                                    }}
+                                    value={option.value} 
                                 />
                                 <TextField
                                     className={classes.option}

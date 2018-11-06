@@ -32,7 +32,7 @@ class Builder extends React.Component {
                 options: [
                     {
                         label: 'Option A',
-                        value: false,
+                        value: true,
                     }
                 ]
             }
