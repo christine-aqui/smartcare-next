@@ -15,11 +15,11 @@ function GetFormItem(item) {
     switch(item.label) {
         case 'radio': 
             return(
-                <MultipleChoices />
+                <MultipleChoices inputItem={item}/>
             )
         case 'multi-choice':
             return(
-                <MultipleChoices />
+                <MultipleChoices inputItem={item}/>
             )
         default:
             return(

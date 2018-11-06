@@ -28,7 +28,13 @@ class Builder extends React.Component {
                 label: 'radio'
             },
             {
-                label: 'multi-choice'
+                label: 'multi-choice',
+                options: [
+                    {
+                        label: 'Option A',
+                        value: false,
+                    }
+                ]
             }
         ],
         items: [],
@@ -43,7 +49,8 @@ class Builder extends React.Component {
         e.stopPropagation();
         let items = this.state.items.slice();
         let itemToAdd = this.state.selectedObject
-        items.push({label: itemToAdd.label, uid: shortid.generate()});
+        itemToAdd.uid = shortid.generate();
+        items.push(itemToAdd);
 
         const {dispatch} = this.props
         dispatch(updateItems(items))
@@ -73,7 +80,7 @@ class Builder extends React.Component {
                 <Grid container spacing={24}>
                     <Grid item xs={3} sm={3} className={classes.subRow}>
                         {
-                            this.state.formObjects.map((item) => {
+                            this.state.formObjects.map((item, index) => {
                                 return(
                                     <DragDropContainer 
                                         targetKey="foo"
@@ -85,7 +92,7 @@ class Builder extends React.Component {
                                         disappearDraggedElement={true}
                                     >   
                                         <Paper className={classes.paper}>
-                                            <Item formItem={item}/>
+                                            <Item formItem={item} />
                                         </Paper>
                                     </DragDropContainer>
                                 )

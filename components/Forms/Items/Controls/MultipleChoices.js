@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-import update from 'immutability-helper';
+import { connect } from 'react-redux';
+
+
+// store
+import { 
+    updateItems
+} from '../../../../store'
 
 class MultipleChoices extends React.Component {
     state = {
@@ -22,9 +21,14 @@ class MultipleChoices extends React.Component {
                 value: false,
             }
         ],
-        editMode: false
+        editMode: false,
+        model: {}
     };
-    
+
+    componentWillMount() {
+        this.state.model = this.props.inputItem
+    }
+
     handleChange = name => event => {
         this.setState({ [name]: event.target.checked });
     };
@@ -45,7 +49,7 @@ class MultipleChoices extends React.Component {
                     margin="normal"
                 />
                 {
-                    this.state.options.map((option, index) => {
+                    this.state.model.options.map((option, index) => {
                         return(
                             <div>
                                 <Checkbox 
@@ -57,10 +61,19 @@ class MultipleChoices extends React.Component {
                                     className={classes.option}
                                     value={option.label}
                                     onChange={(e) => {
-                                        let optionsCopy = this.state.options;
-                                        optionsCopy[index].label = e.target.value
-                                        this.setState({
-                                            options: optionsCopy
+
+                                        let itemsCopy = this.props.items;
+                                        // fidn index
+                                        this.props.items.map((aItem, i) => {
+                                            if(aItem.uid == this.props.inputItem.uid) {
+                                                itemsCopy[i].options[index].label = e.target.value
+
+                                                const {dispatch} = this.props
+                                                dispatch(updateItems(itemsCopy))
+                                                this.setState({
+                                                    model: itemsCopy[i]
+                                                })
+                                            }
                                         })
                                     }}
                                     margin="normal"
@@ -70,10 +83,22 @@ class MultipleChoices extends React.Component {
                                     variant="contained" 
                                     className={classes.button}
                                     onClick={() => {
-                                        let optionsCopy = this.state.options;
-                                        optionsCopy.splice(index, 1)
-                                        this.setState({
-                                            options: optionsCopy
+
+                                        let itemsCopy = this.props.items;
+
+                                        this.props.items.map((aItem, i) => {
+                                            if(aItem.uid == this.props.inputItem.uid) {
+                                                let optionsCopy = itemsCopy[i].options;
+                                                optionsCopy.splice(index, 1)
+                                                itemsCopy[i].options = optionsCopy;
+                                                
+                                                const {dispatch} = this.props
+                                                dispatch(updateItems(itemsCopy))
+                                                
+                                                this.setState({
+                                                    model: itemsCopy[i]
+                                                })
+                                            }
                                         })
                                     }}
                                     disabled={index == 0}
@@ -89,13 +114,26 @@ class MultipleChoices extends React.Component {
                     variant="contained" 
                     className={classes.button}
                     onClick={() => {
-                        let optionsCopy = this.state.options;
-                        optionsCopy.push({
-                            label: 'Option Name',
-                            value: false,
-                        })
-                        this.setState({
 
+
+                        let itemsCopy = this.props.items;
+
+                        this.props.items.map((aItem, i) => {
+                            if(aItem.uid == this.props.inputItem.uid) {
+                                let optionsCopy = itemsCopy[i].options;
+                                optionsCopy.push({
+                                    label: 'Option Name',
+                                    value: false,
+                                })
+                                itemsCopy[i].options = optionsCopy;
+                                
+                                const {dispatch} = this.props
+                                dispatch(updateItems(itemsCopy))
+                                
+                                this.setState({
+                                    model: itemsCopy[i]
+                                })
+                            }
                         })
                     }}
                 >
@@ -128,4 +166,9 @@ const styles = theme => ({
     }
 });
 
-export default withStyles(styles)(MultipleChoices);
+function mapStateToProps (state) {
+    const  { items } = state
+    return { items }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(MultipleChoices));
