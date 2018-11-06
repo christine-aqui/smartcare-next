@@ -18,9 +18,13 @@ class RadioComponent extends React.Component {
     state = {
         model: {}
     }
-    componentWillMount() {
+    constructor(props) {
+        super(props);
         this.state.model = this.props.inputItem
     }
+    // componentWillMount() {
+    //     this.state.model = this.props.inputItem
+    // }
 
     handleTextChange = (e) => {
         let itemsCopy = this.props.items;

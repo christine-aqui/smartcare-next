@@ -69,16 +69,16 @@ class Builder extends React.Component {
 
 
     handleDrop = (e) => {
-        e.stopPropagation();
-        let items = this.state.items.slice();
-        let itemToAdd = this.state.selectedObject
-        itemToAdd.uid = shortid.generate();
-        items.push(itemToAdd);
-
+        // e.stopPropagation();
+        const newItems = this.state.items;
+        const itemToAdd = Object.assign({}, this.state.selectedObject, {
+            uid: shortid.generate()
+        })
+        newItems.push(itemToAdd);
         const {dispatch} = this.props
-        dispatch(updateItems(items))
+        dispatch(updateItems(newItems))
 
-        this.setState({items: this.props.items});
+        this.setState({items: this.props.items, selectedObject: {}} );
     };
 
     deleteItem = (e) => (index) => {

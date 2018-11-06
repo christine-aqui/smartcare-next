@@ -11,11 +11,11 @@
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/form-consumer": [
+    "/test": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/test": [
+    "/form-consumer": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]
