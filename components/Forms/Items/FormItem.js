@@ -12,6 +12,7 @@ import MultipleChoices from './Controls/MultipleChoices';
 import TextComponent from './Controls/TextComponent';
 import CalanderComponent from './Controls/CalanderComponent';
 import RadioComponent from './Controls/RadioComponent'
+import DropDownComponent from './Controls/DropDownComponent'
 
 
 function GetFormItem(item) {
@@ -31,6 +32,10 @@ function GetFormItem(item) {
         case 'calander':
             return(
                 <CalanderComponent inputItem={item}/>
+            )
+        case 'dropdown':
+            return(
+                <DropDownComponent inputItem={item} />
             )
         default:
             return(

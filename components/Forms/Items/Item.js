@@ -6,7 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import {    FaListUl,
             FaCheckSquare,
             FaAlignJustify,
-            FaCalendar
+            FaCalendar,
+            FaCaretDown
 } from 'react-icons/fa'
 
 
@@ -25,6 +26,10 @@ function GetIcons({label}) {
             return (
                 <FaCalendar />
             )
+        case 'dropdown':
+            return (
+                <FaCaretDown />
+            )    
         default:
             return(
                 <FaListUl />
