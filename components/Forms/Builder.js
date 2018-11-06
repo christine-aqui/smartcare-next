@@ -75,6 +75,7 @@ class Builder extends React.Component {
             uid: shortid.generate()
         })
         newItems.push(itemToAdd);
+
         const {dispatch} = this.props
         dispatch(updateItems(newItems))
 
@@ -84,7 +85,7 @@ class Builder extends React.Component {
     deleteItem = (e) => (index) => {
         let itemsCopy = this.state.items;
         itemsCopy.splice(index, 1)
-
+ 
         const {dispatch} = this.props
         dispatch(updateItems(itemsCopy))
 
@@ -142,7 +143,20 @@ class Builder extends React.Component {
                                         <IconButton 
                                             aria-label="Delete" 
                                             className={classes.button}
-                                            onClick={this.deleteItem(index)}
+                                            onClick={() => {
+                                               console.log('IIII', index);
+
+                                                let itemsCopy = this.state.items;
+                                                itemsCopy.splice(index, 1)
+                                        
+                                                const {dispatch} = this.props
+                                                dispatch(updateItems(itemsCopy))
+
+                                                this.setState({
+                                                    items: this.props.items
+                                                })
+
+                                            }}
                                         > 
                                             <DeleteIcon />
                                         </IconButton>
