@@ -14,6 +14,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
+import Router from 'next/router';
 
 const styles = theme => ({
   root: {
@@ -164,6 +166,21 @@ class AppBarMain extends React.Component {
       </Menu>
     );
 
+    const renderAdminButton = 
+      this.props.type === 'admin' ?
+      (
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          className={classes.button}
+          onClick={() => {
+            Router.push(`/admin`);
+          }}
+        >
+          Admin Portal
+        </Button>
+      ) : null
+
     const renderMobileMenu = (
       <Menu
         anchorEl={mobileMoreAnchorEl}
@@ -210,6 +227,7 @@ class AppBarMain extends React.Component {
             
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
+             {renderAdminButton}
               
               <IconButton color="inherit" onClick={this.handleNoticeMenuOpen}>
                 {

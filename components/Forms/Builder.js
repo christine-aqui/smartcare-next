@@ -14,6 +14,7 @@ import Router from 'next/router';
 import Item from './Items/Item';
 import GetFormItem from './Items/FormItem'
 var shortid = require('shortid');
+import axios from 'axios';
 
 // store
 import { 
@@ -94,11 +95,22 @@ class Builder extends React.Component {
         })
     }
 
+    sendForm = () => {
+        axios.post('https://smartapinode.herokuapp.com/custom-forms', {
+            "org_id": "Cal Naowa",
+            "formFormat": {
+                "items": this.props.items
+            }
+        }).then((res) => {
+            Router.push(`/form-consumer`);
+        })
+    } 
+
     render() {
         const { classes } = this.props;
         return(
             <div>
-                <AppBar />
+                <AppBar type="admin"/>
                 
                 <div className={classes.selectRow}>
                 <Grid container spacing={24}>
@@ -126,9 +138,7 @@ class Builder extends React.Component {
                             variant="contained" 
                             color="primary" 
                             className={classes.createButton}
-                            onClick={() => {
-                                Router.push(`/form-consumer`)
-                            }}
+                            onClick={this.sendForm}
                             disabled={this.state.items.length === 0}
                         >
                             Create Form
