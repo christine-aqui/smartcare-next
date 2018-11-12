@@ -444,7 +444,7 @@ function getPageContext() {
 /*!******************!*\
   !*** ./store.js ***!
   \******************/
-/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changeEmergencyContact, changePhysician, deleteField, newPatinetAction, updateDenture, updateConcent, updateItems, initializeStore */
+/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changeEmergencyContact, changePhysician, deleteField, newPatinetAction, updateDenture, updateConcent, updateItems, updateFormName, initializeStore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -469,6 +469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateDenture", function() { return updateDenture; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateConcent", function() { return updateConcent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateItems", function() { return updateItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateFormName", function() { return updateFormName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initializeStore", function() { return initializeStore; });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "redux");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
@@ -480,19 +481,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var exampleInitialState = {
-  lastUpdate: 0,
-  light: false,
-  count: 0,
-  firstName: '',
-  lastName: '',
-  age: '',
-  gender: 'female',
-  allergies: '',
-  physician: '',
-  primaryDiagonosis: '',
-  emergencyContact: '',
-  denteture: false,
-  concent: false,
+  formName: '',
   fields: [{
     label: 'Blood Preasure',
     val: ''
@@ -523,7 +512,8 @@ var actionTypes = {
   EMERGENCYCONTACT: 'EMERGENCYCONTACT',
   DENTURE: 'DENTURE',
   CONCENT: 'CONCENT',
-  UPDATEITEMS: 'UPDATEITEMS' // REDUCERS
+  UPDATEITEMS: 'UPDATEITEMS',
+  UPDATEFORMNAME: 'UPDATEFORMNAME' // REDUCERS
 
 };
 var reducer = function reducer() {
@@ -615,6 +605,11 @@ var reducer = function reducer() {
     case actionTypes.UPDATEITEMS:
       return Object.assign({}, state, {
         items: action.payload
+      });
+
+    case actionTypes.UPDATEFORMNAME:
+      return Object.assign({}, state, {
+        formName: action.payload
       });
 
     default:
@@ -762,6 +757,14 @@ var updateItems = function updateItems(payload) {
   return function (dispatch) {
     return dispatch({
       type: actionTypes.UPDATEITEMS,
+      payload: payload
+    });
+  };
+};
+var updateFormName = function updateFormName(payload) {
+  return function (dispatch) {
+    return dispatch({
+      type: actionTypes.UPDATEFORMNAME,
       payload: payload
     });
   };

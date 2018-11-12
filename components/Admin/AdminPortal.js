@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 import { MdClearAll,
          MdPeople,
          MdPermDataSetting,
@@ -21,6 +22,15 @@ import Router from 'next/router';
 
 
 class AdminPortal extends React.Component {
+    state= {
+        existingForms: []
+    }
+    componentWillMount() {
+        axios.get('https://smartapinode.herokuapp.com/custom-forms')
+            .then((res) => {
+                this.setState({ existingForms: res.data.forms })
+            })
+    }
 
     render() {
         const { classes } = this.props;
@@ -38,33 +48,21 @@ class AdminPortal extends React.Component {
                                 Existing Forms
                             </Typography>
                             <List component="nav">
-                                <ListItem>
-                                    <ListItemIcon>
-                                        <MdClearAll />
-                                    </ListItemIcon>
-                                    <ListItemText>Pediatric</ListItemText>
-                                    <Button variant="outlined" color="primary" aria-label="Edit" className={classes.button}>
-                                       <MdModeEdit />
-                                    </Button>
-                                </ListItem>
-                                <ListItem >
-                                    <ListItemIcon>
-                                        <MdClearAll />
-                                    </ListItemIcon>
-                                    <ListItemText>Cardiac</ListItemText>
-                                    <Button variant="outlined" color="primary" aria-label="Edit" className={classes.button}>
-                                       <MdModeEdit />
-                                    </Button>
-                                </ListItem>
-                                <ListItem >
-                                    <ListItemIcon>
-                                        <MdClearAll />
-                                    </ListItemIcon>
-                                    <ListItemText>General</ListItemText>
-                                    <Button variant="outlined" color="primary" aria-label="Edit" className={classes.button}>
-                                       <MdModeEdit />
-                                    </Button>
-                                </ListItem>
+                            {
+                                this.state.existingForms.map((item) => {
+                                    return(
+                                        <ListItem>
+                                            <ListItemIcon>
+                                                <MdClearAll />
+                                            </ListItemIcon>
+                                            <ListItemText>{item.formFormat.formName}</ListItemText>
+                                            <Button variant="outlined" color="primary" aria-label="Edit" className={classes.button}>
+                                                <MdModeEdit />
+                                            </Button>
+                                        </ListItem>
+                                    )
+                                })
+                            }
                             </List>
                         </Paper>
                     </Grid>

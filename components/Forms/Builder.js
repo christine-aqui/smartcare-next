@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import Router from 'next/router';
 
 import Item from './Items/Item';
@@ -18,7 +19,8 @@ import axios from 'axios';
 
 // store
 import { 
-    updateItems
+    updateItems,
+    updateFormName
 } from '../../store'
 
 class Builder extends React.Component {
@@ -62,10 +64,18 @@ class Builder extends React.Component {
             }
         ],
         items: [],
-        selectedObject: {}
+        selectedObject: {},
+        formName: ''
     };
     constructor(props) {
         super(props);
+    }
+
+    componentWillMount() {
+        this.setState({
+            formName: this.props.formName,
+            items: this.props.items
+        })
     }
 
 
@@ -96,15 +106,23 @@ class Builder extends React.Component {
     }
 
     sendForm = () => {
+
         axios.post('https://smartapinode.herokuapp.com/custom-forms', {
             "org_id": "Cal Naowa",
             "formFormat": {
+                "formName": this.state.formName,
                 "items": this.props.items
             }
         }).then((res) => {
             Router.push(`/form-consumer`);
         })
-    } 
+    }
+
+    changeNameofForm = (e) => {
+        this.setState({
+            formName: e.target.value
+        })
+    }
 
     render() {
         const { classes } = this.props;
@@ -139,12 +157,18 @@ class Builder extends React.Component {
                             color="primary" 
                             className={classes.createButton}
                             onClick={this.sendForm}
-                            disabled={this.state.items.length === 0}
+                            disabled={this.state.items.length === 0 || !this.state.formName}
                         >
                             Create Form
                         </Button>
                     </Grid>
                     <Grid item xs={12} sm={6}>
+                        <TextField 
+                            label="Name of Your Form"
+                            onChange={this.changeNameofForm}
+                            value={this.state.formName}
+                            className={classes.formName}
+                        />
                         {
                             this.state.items.map((item, index) => {
                                 return(
@@ -234,12 +258,15 @@ const styles = theme => ({
     },
     createButton: {
         margin: theme.spacing.unit
+    },
+    formName: {
+        marginBottom: '10px'
     }
 });
 
 function mapStateToProps (state) {
-    const  { items } = state
-    return { items }
+    const  { items, formName } = state
+    return { items, formName }
 }
 
 export default connect(mapStateToProps)(withStyles(styles)(Builder));

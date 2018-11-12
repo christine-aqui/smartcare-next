@@ -3,19 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunkMiddleware from 'redux-thunk'
 
 const exampleInitialState = {
-  lastUpdate: 0,
-  light: false,
-  count: 0,
-  firstName: '',
-  lastName: '',
-  age: '',
-  gender: 'female',
-  allergies: '',
-  physician: '',
-  primaryDiagonosis: '',
-  emergencyContact: '',
-  denteture: false,
-  concent: false,
+  formName: '',
   fields: [
     {
         label: 'Blood Preasure',
@@ -52,7 +40,8 @@ export const actionTypes = {
   EMERGENCYCONTACT: 'EMERGENCYCONTACT',
   DENTURE: 'DENTURE',
   CONCENT: 'CONCENT',
-  UPDATEITEMS: 'UPDATEITEMS'
+  UPDATEITEMS: 'UPDATEITEMS',
+  UPDATEFORMNAME: 'UPDATEFORMNAME'
 
 }
 
@@ -137,6 +126,11 @@ export const reducer = (state = exampleInitialState, action) => {
         items: action.payload        
       })
 
+    case actionTypes.UPDATEFORMNAME: 
+      return Object.assign({}, state, {
+        formName: action.payload        
+      })
+
     default: return state
   }
 }
@@ -215,6 +209,10 @@ export const updateConcent = (payload) => dispatch => {
 
 export const updateItems = (payload) => dispatch => {
   return dispatch({ type: actionTypes.UPDATEITEMS, payload: payload })
+}
+
+export const updateFormName = (payload) => dispatch => {
+  return dispatch({ type: actionTypes.UPDATEFORMNAME, payload: payload })
 }
 
 export function initializeStore (initialState = exampleInitialState) {
