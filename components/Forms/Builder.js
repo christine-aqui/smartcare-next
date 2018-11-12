@@ -46,7 +46,8 @@ class Builder extends React.Component {
             },
             {
                 label:'calander',
-                q_label: 'Question Title'
+                q_label: 'Question Title',
+                val: ''
             },
             {
                 label: 'dropdown',

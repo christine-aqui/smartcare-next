@@ -23,6 +23,22 @@ class CalanderComponent extends React.Component {
         // fidn index
         this.props.items.map((aItem, i) => {
             if(aItem.uid == this.props.inputItem.uid) {
+                itemsCopy[i].val = e.target.value
+
+                const {dispatch} = this.props
+                dispatch(updateItems(itemsCopy))
+                this.setState({
+                    model: itemsCopy[i]
+                })
+            }
+        })
+    }
+
+    handleLabelChange = (e) => {
+        let itemsCopy = this.props.items;
+        // fidn index
+        this.props.items.map((aItem, i) => {
+            if(aItem.uid == this.props.inputItem.uid) {
                 itemsCopy[i].q_label = e.target.value
 
                 const {dispatch} = this.props
@@ -37,13 +53,22 @@ class CalanderComponent extends React.Component {
     render() {
         const { classes } = this.props;
         return(
-            <TextField
-                type="datetime-local"
-                className={classes.textField}
-                defaultValue="2017-05-24T10:30"
-                onChange={this.handleTextChange}
-                margin="normal"
-            />
+            <div>
+                <TextField
+                    label="Question Label"
+                    className={classes.textField}
+                    value={this.state.model.q_label}
+                    onChange={this.handleLabelChange}
+                    margin="normal"
+                />
+                <TextField
+                    type="datetime-local"
+                    className={classes.textField}
+                    defaultValue={this.state.model.val}
+                    onChange={this.handleTextChange}
+                    margin="normal"
+                />
+            </div>
         )
     }
 }
