@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { MdClearAll,
          MdPeople,
@@ -19,6 +20,12 @@ import { MdClearAll,
 } from 'react-icons/md'
 
 import Router from 'next/router';
+
+// store
+import { 
+    updateItems,
+    updateFormName
+} from '../../store'
 
 
 class AdminPortal extends React.Component {
@@ -56,7 +63,19 @@ class AdminPortal extends React.Component {
                                                 <MdClearAll />
                                             </ListItemIcon>
                                             <ListItemText>{item.formFormat.formName}</ListItemText>
-                                            <Button variant="outlined" color="primary" aria-label="Edit" className={classes.button}>
+                                            <Button variant="outlined" 
+                                                    color="primary" 
+                                                    aria-label="Edit" 
+                                                    className={classes.button}
+                                                    onClick={ () => {
+
+                                                        const {dispatch} = this.props
+                                                        dispatch(updateItems(item.formFormat.items))
+                                                        dispatch(updateFormName(item.formFormat.formName))
+
+                                                        Router.push(`/edit-form`);
+                                                    } }
+                                            >
                                                 <MdModeEdit />
                                             </Button>
                                         </ListItem>
@@ -126,4 +145,9 @@ AdminPortal.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AdminPortal);
+function mapStateToProps (state) {
+    const  { items } = state
+    return { items }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(AdminPortal));

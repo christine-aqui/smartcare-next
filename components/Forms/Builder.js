@@ -118,6 +118,10 @@ class Builder extends React.Component {
         })
     }
 
+    updateForm = () => {
+        // TODO
+    }
+
     changeNameofForm = (e) => {
         this.setState({
             formName: e.target.value
@@ -152,15 +156,30 @@ class Builder extends React.Component {
                                 )
                             })
                         }
-                        <Button 
-                            variant="contained" 
-                            color="primary" 
-                            className={classes.createButton}
-                            onClick={this.sendForm}
-                            disabled={this.state.items.length === 0 || !this.state.formName}
-                        >
-                            Create Form
-                        </Button>
+                        {
+                            this.props.update ? (
+                                <Button 
+                                    variant="contained" 
+                                    color="primary" 
+                                    className={classes.createButton}
+                                    onClick={this.updateForm}
+                                    disabled={this.state.items.length === 0 || !this.state.formName}
+                                >
+                                    Update Form
+                                </Button>
+
+                            ) : (
+                                <Button 
+                                    variant="contained" 
+                                    color="primary" 
+                                    className={classes.createButton}
+                                    onClick={this.sendForm}
+                                    disabled={this.state.items.length === 0 || !this.state.formName}
+                                >
+                                    Create Form
+                                </Button>
+                            )
+                        }
                     </Grid>
                     <Grid item xs={12} sm={6}>
                         <TextField 
