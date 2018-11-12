@@ -17,6 +17,8 @@ import { MdClearAll,
          MdSettings
 } from 'react-icons/md'
 
+import Router from 'next/router';
+
 
 class AdminPortal extends React.Component {
 
@@ -78,7 +80,11 @@ class AdminPortal extends React.Component {
                                     </ListItemIcon>
                                     <ListItemText>Add User</ListItemText>
                                 </ListItem>
-                                <ListItem button>
+                                <ListItem button onClick={
+                                    () => {
+                                        Router.push(`/test`);
+                                    }
+                                }>
                                     <ListItemIcon>
                                         <MdQueue />
                                     </ListItemIcon>
