@@ -21033,7 +21033,7 @@ function getPageContext() {
 /*!******************!*\
   !*** ./store.js ***!
   \******************/
-/*! exports provided: actionTypes, reducer, serverRenderClock, startClock, incrementCount, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changeEmergencyContact, changePhysician, deleteField, newPatinetAction, updateDenture, updateConcent, updateItems, updateFormName, initializeStore */
+/*! exports provided: actionTypes, reducer, serverRenderClock, decrementCount, resetCount, changeName, changeLastName, changeAge, changeGender, changeAllergies, changePrimaryDiagonosis, changeEmergencyContact, changePhysician, deleteField, newPatinetAction, updateDenture, updateConcent, updateItems, updateFormName, initializeStore */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21041,8 +21041,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actionTypes", function() { return actionTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return reducer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serverRenderClock", function() { return serverRenderClock; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startClock", function() { return startClock; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "incrementCount", function() { return incrementCount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "decrementCount", function() { return decrementCount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetCount", function() { return resetCount; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeName", function() { return changeName; });
@@ -21083,8 +21081,6 @@ var exampleInitialState = {
   items: []
 };
 var actionTypes = {
-  TICK: 'TICK',
-  INCREMENT: 'INCREMENT',
   DECREMENT: 'DECREMENT',
   RESET: 'RESET',
   FIRSTNAME: 'FIRSTNAME',
@@ -21108,17 +21104,6 @@ var reducer = function reducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case actionTypes.TICK:
-      return Object.assign({}, state, {
-        lastUpdate: action.ts,
-        light: !!action.light
-      });
-
-    case actionTypes.INCREMENT:
-      return Object.assign({}, state, {
-        count: state.count + 1
-      });
-
     case actionTypes.DECREMENT:
       return Object.assign({}, state, {
         count: state.count - 1
@@ -21210,23 +21195,6 @@ var serverRenderClock = function serverRenderClock(isServer) {
       type: actionTypes.TICK,
       light: !isServer,
       ts: Date.now()
-    });
-  };
-};
-var startClock = function startClock(dispatch) {
-  return setInterval(function () {
-    // Dispatch `TICK` every 1 second
-    dispatch({
-      type: actionTypes.TICK,
-      light: true,
-      ts: Date.now()
-    });
-  }, 1000);
-};
-var incrementCount = function incrementCount() {
-  return function (dispatch) {
-    return dispatch({
-      type: actionTypes.INCREMENT
     });
   };
 };
