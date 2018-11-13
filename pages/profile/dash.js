@@ -22,7 +22,7 @@ class Index extends React.Component {
   render () {
     return (
       <div>
-        <AppBarMain type="admin"/>
+        <AppBarMain/>
         <PaperSheet />
         <QuickLinks />
       </div>

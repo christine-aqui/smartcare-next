@@ -16,6 +16,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Button from '@material-ui/core/Button';
 import Router from 'next/router';
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
@@ -167,7 +168,7 @@ class AppBarMain extends React.Component {
     );
 
     const renderAdminButton = 
-      this.props.type === 'admin' ?
+      this.props.userRole === 'admin' ?
       (
         <Button 
           variant="contained" 
@@ -179,7 +180,19 @@ class AppBarMain extends React.Component {
         >
           Admin Portal
         </Button>
-      ) : null
+      ) : 
+      (
+        <Button 
+          variant="contained" 
+          color="secondary" 
+          className={classes.button}
+          onClick={() => {
+            Router.push(`/nurse-actions`);
+          }}
+        >
+          Nurse Portal
+        </Button>
+      )
 
     const renderMobileMenu = (
       <Menu
@@ -271,4 +284,9 @@ AppBarMain.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AppBarMain);
+function mapStateToProps (state) {
+  const  { userRole } = state
+  return { userRole }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(AppBarMain));

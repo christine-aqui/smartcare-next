@@ -13,6 +13,12 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Router from 'next/router';
+import { connect } from 'react-redux';
+
+// action
+import { 
+    setUserRole
+} from '../../store'
 
 const styles = theme => ({
   layout: {
@@ -54,8 +60,14 @@ export class SigninComponent extends React.Component {
 
     handleForm = () => {
         if (this.state.username === 'test' && this.state.password ==='12345' ) {
+            const {dispatch} = this.props
+            dispatch(setUserRole('admin'))
             Router.push(`/profile/dash`)
         }
+        if (this.state.username === 'nurse' && this.state.password ==='12345' ) {
+            Router.push(`/profile/dash`)
+        }
+
     }
 
     handleChange = name => event => {
@@ -124,4 +136,9 @@ SigninComponent.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SigninComponent);
+function mapStateToProps (state) {
+    const  { userRole } = state
+    return { userRole }
+}
+
+export default connect(mapStateToProps)(withStyles(styles)(SigninComponent));
